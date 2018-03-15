@@ -9,7 +9,7 @@ use App\Tag;
 use Carbon\Carbon;
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Storage;
 
 class PostsTableSeeder extends Seeder
 {
@@ -20,6 +20,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        Storage::disk('public')->deleteDirectory('posts');
         Post::truncate();
         Category::truncate();
         Tag::truncate();
