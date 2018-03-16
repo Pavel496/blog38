@@ -63,11 +63,55 @@ class Post extends Model
 
         }
 
-        public function setTitleAttribute($title)
+        public static function create(array $attributes = [])
         {
-          $this->attributes['title'] = $title;
-          $this->attributes['url'] = str_slug($title);
+          $post = static::query()->create($attributes);
+
+          $post->generateUrl();
+
+          // $url = str_slug($attributes['title']);
+          //
+          // if (static::where('url', $url)->exists())
+          // {
+          //   $url = "{$url}-{$post->id}";
+          // }
+          //
+          // $post->url = $url;
+          //
+          // $post->save();
+
+          return $post;
         }
+
+        public function generateUrl()
+        {
+          $url = str_slug($this->title);
+
+          // if ($this->where('url', $url)->exists())
+          if ($this->whereUrl($url)->exists())
+          {
+            $url = "{$url}-{$this->id}";
+          }
+
+          $this->url = $url;
+
+          $this->save();
+        }
+
+        // public function setTitleAttribute($title)
+        // {
+        //   $this->attributes['title'] = $title;
+        //
+        //   $originalUrl = $url = str_slug($title);
+        //   $count = 1;
+        //
+        //   while( Post::where('url', $url)->exists() )
+        //   {
+        //     $url = "{$originalUrl}-" . ++$count;
+        //   }
+        //
+        //   $this->attributes['url'] = $url;
+        // }
 
         public function setPublishedAtAttribute($published_at)
         {

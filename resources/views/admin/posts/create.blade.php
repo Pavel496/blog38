@@ -16,6 +16,13 @@
               placeholder= "Enter title of post" autofocus required>
               {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
             </div>
+            {{-- <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+              <input id="post-title" name="title"
+              class="form-control"
+              value="{{ old('title') }}"
+              placeholder= "Enter url of post" autofocus required>
+              {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
+            </div> --}}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
