@@ -40,6 +40,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Полное описание поста №1</p>";
         $post->published_at = Carbon::now()->subDays(5);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
         $post->tags()->attach(Tag::create(['name'=>'N1']));
 
@@ -50,6 +51,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Полное описание поста №2</p>";
         $post->published_at = Carbon::now()->subDays(4);
         $post->category_id = 2;
+        $post->user_id = 1;
         $post->save();
         $post->tags()->attach(Tag::create(['name'=>'N2']));
 
@@ -60,6 +62,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Полное описание поста №3</p>";
         $post->published_at = Carbon::now()->subDays(3);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
         $post->tags()->attach(Tag::create(['name'=>'N3']));
 
@@ -70,6 +73,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Полное описание поста №4</p>";
         $post->published_at = Carbon::now()->subDays(2);
         $post->category_id = 2;
+        $post->user_id = 1;
         $post->save();
         $post->tags()->attach(Tag::create(['name'=>'N4']));
 
@@ -80,6 +84,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Полное описание поста №5</p>";
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
         $post->tags()->attach(Tag::create(['name'=>'N5']));
 

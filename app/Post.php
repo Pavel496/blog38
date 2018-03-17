@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Post extends Model
 {
         protected $fillable = [
-            'title', 'body', 'iframe', 'excerpt', 'published_at', 'category_id',
+            'title', 'body', 'iframe', 'excerpt', 'published_at', 'category_id', 'user_id'
         ];
 
         // protected $guarded = [];
@@ -53,6 +53,11 @@ class Post extends Model
 
             return $this->hasMany(Photo::class);
 
+        }
+
+        public function owner()
+        {
+          return $this->belongsTo(User::class, 'user_id');
         }
 
         public function scopePublished($query)
