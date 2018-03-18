@@ -31,15 +31,18 @@ class PostsController extends Controller
 
   public function store(Request $request)
   {
+    $this->authorize('create', new Post);
+
     $this->validate($request, [
       'title' => 'required|min:3'
     ]);
 
     // $post = Post::create( $request->only('title') );
-    $post = Post::create([
-        'title' => $request->get('title'),
-        'user_id' => auth()->id()
-      ]);
+    $post = Post::create( $request->all() );
+    // $post = Post::create([
+    //     'title' => $request->get('title'),
+    //     'user_id' => auth()->id()
+    //   ]);
 
 
 
@@ -52,10 +55,14 @@ class PostsController extends Controller
     // auth()->id() === $post->user_id;
     $this->authorize('view', $post);
 
-    $categories = Category::all();
-    $tags = Tag::all();
+    // $categories = Category::all();
+    // $tags = Tag::all();
 
-    return view('admin.posts.edit', compact('categories', 'tags', 'post'));
+    return view('admin.posts.edit', [
+          'post' => $post,
+          'tags' => Tag::all(),
+          'categories' => Category::all()
+        ]);
 
   }
 
