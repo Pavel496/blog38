@@ -14,7 +14,10 @@ class PostsController extends Controller
 {
   public function index()
   {
-    $posts = Post::all();
+    // $posts = Post::all();
+    // $posts = Post::where('user_id', auth()->id())->get();
+    $posts = auth()->user()->posts;
+
     return view('admin.posts.index', compact('posts'));
   }
 
@@ -46,7 +49,9 @@ class PostsController extends Controller
 
   public function edit(Post $post)
   {
-    //dd($post);
+    // auth()->id() === $post->user_id;
+    $this->authorize('view', $post);
+
     $categories = Category::all();
     $tags = Tag::all();
 
@@ -56,6 +61,7 @@ class PostsController extends Controller
 
   public function update(Post $post, StorePostRequest $request)
   {
+    $this->authorize('update', $post);
     // $post->title = $request->get('title');
     // $post->body = $request->get('body');
     // $post->iframe = $request->get('iframe');
@@ -93,6 +99,7 @@ class PostsController extends Controller
   {
     // $post->tags()->detach();
     // $post->photos->each->delete();
+    $this->authorize('delete', $post);
 
     $post->delete();
 
