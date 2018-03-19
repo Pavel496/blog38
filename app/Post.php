@@ -68,6 +68,17 @@ class Post extends Model
 
         }
 
+        public function scopeAllowed($query)
+        {
+          if (auth()->user()->hasRole('Admin'))
+          {
+            // $posts = Post::all();
+            return $query;
+          }
+
+          return $query->where('user_id', auth()->id());
+        }
+
         public function isPublished()
         {
           return ! is_null($this->published_at) && $this->published_at < today();
