@@ -70,7 +70,7 @@ class Post extends Model
 
         public function scopeAllowed($query)
         {
-          if (auth()->user()->hasRole('Admin'))
+          if (auth()->user()->can('view', $this))
           {
             // $posts = Post::all();
             return $query;

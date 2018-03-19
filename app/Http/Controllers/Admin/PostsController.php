@@ -60,7 +60,7 @@ class PostsController extends Controller
   public function edit(Post $post)
   {
     // auth()->id() === $post->user_id;
-    $this->authorize('view', $post);
+    $this->authorize('update', $post);
 
     // $categories = Category::all();
     // $tags = Tag::all();
