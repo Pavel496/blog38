@@ -40,21 +40,21 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                         <td>
-                          {{-- <a href="{{ route('admin.user.show', $user) }}"
-                            class="btn btn-xs btn-default"
-                            target="_blank">
+                          <a href="{{ route('admin.users.show', $user) }}"
+                            class="btn btn-xs btn-default">
+                            {{-- target="_blank"> --}}
                             <i class="fa fa-eye"></i></span></a>
-                          <a href="{{ route('admin.user.edit', $user) }}"
+                          <a href="{{ route('admin.users.edit', $user) }}"
                             class="btn btn-xs btn-info">
                             <i class="fa fa-pencil"></i></span></a>
                           <form method="POST"
-                            action="{{ route('admin.user.destroy', $user) }}"
+                            action="{{ route('admin.users.destroy', $user) }}"
                             style="display: inline">
                             {{ csrf_field() }} {{ method_field('DELETE') }}
                             <button class="btn btn-xs btn-danger"
                               onclick="return confirm('Удалить этого пользователя?')"
                             ><i class="fa fa-times"></i></button>
-                          </form> --}}
+                          </form>
                     @endforeach
                   </tbody>
                 </table>
