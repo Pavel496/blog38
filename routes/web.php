@@ -15,6 +15,8 @@ function(){
   Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
   Route::resource('users', 'UsersController', ['as' => 'admin']);
 
+  Route::put('users/{user}/roles', 'UsersRolesController@update')->name('admin.users.roles.update');
+
   // Route::get('posts', 'PostsController@index')->name('admin.posts.index');
   // Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
   // Route::post('posts', 'PostsController@store')->name('admin.posts.store');
