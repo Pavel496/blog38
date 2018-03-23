@@ -9,8 +9,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LoginCredentials extends Mailable
 {
-    protected $user;
-    protected $password;
+    public $user;
+    public $password;
 
     use Queueable, SerializesModels;
 

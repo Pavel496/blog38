@@ -1,12 +1,18 @@
 @component('mail::message')
-# Introduction
+# Ваши Логин и Пароль для {{ config('app.name') }}
 
-The body of your message.
+Используйте их для входа в систему
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::table')
+  |   Логин   |   Пароль   |
+  |:-----------|:------------|
+  | {{ $user->email }} | {{ $password }} |
 @endcomponent
 
-Thanks,<br>
+@component('mail::button', ['url' => url('login')])
+Войти
+@endcomponent
+
+Спасибо,<br>
 {{ config('app.name') }}
 @endcomponent
