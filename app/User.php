@@ -37,4 +37,15 @@ class User extends Authenticatable
     {
       return $this->hasMany(Post::class);
     }
+
+    public function scopeAllowed($query)
+    {
+      if (auth()->user()->can('view', $this))
+      {
+        // $posts = Post::all();
+        return $query;
+      }
+
+      return $query->where('id', auth()->id());
+    }
 }
