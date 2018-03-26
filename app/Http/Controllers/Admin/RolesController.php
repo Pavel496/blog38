@@ -29,8 +29,8 @@ class RolesController extends Controller
     public function create()
     {
         return view('admin.roles.create', [
-          'permissions' => Permission::pluck('name', 'id'),
-          'role' => new Role
+          'role' => new Role,
+          'permissions' => Permission::pluck('name', 'id')
         ]);
     }
 
@@ -43,7 +43,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-          'name' => 'required',
+          'name' => 'required|unique:roles',
           'guard_name' => 'required'
         ]);
 
@@ -74,9 +74,12 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        return view('admin.roles.edit', [
+          'role' => $role,
+          'permissions' => Permission::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -86,9 +89,24 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+      $data = $request->validate([
+        'name' => 'required|unique:roles,name,' . $role->id,
+        'guard_name' => 'required'
+      ]);
+
+      $role->update($data);
+
+      $role->permissions()->detach();
+
+      if ($request->has('permissions')) {
+        $role->givePermissionTo($request->permissions);
+      }
+
+      return redirect()->route('admin.roles.edit', $role)
+              ->withFlash('The role updated correct');
+
     }
 
     /**
