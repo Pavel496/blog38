@@ -1,13 +1,4 @@
 <?php
-// MAIL_DRIVER=mailgun
-// MAILGUN_DOMAIN=sandbox609ecbf206bb45a3a4de0368a6429c67.mailgun.org
-// MAILGUN_SECRET=key-1c8faed7648864394f88921c9d57aed4
-// MAIL_DRIVER=smtp
-// MAIL_HOST=smtp.mailtrap.io
-// MAIL_PORT=2525
-// MAIL_USERNAME=cbaeaf504433cd
-// MAIL_PASSWORD=f100b26db42f39
-// MAIL_ENCRYPTION=null
 
 // Route::get('email', function(){
 //   return new App\Mail\LoginCredentials(App\User::first(), 'asd123');
