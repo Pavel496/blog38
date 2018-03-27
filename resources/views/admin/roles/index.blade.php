@@ -39,21 +39,22 @@
                         <td>{{ $role->display_name }}</td>
                         <td>{{ $role->permissions->pluck('display_name')->implode(', ') }}</td>
                         <td>
-                          <a href="{{ route('admin.roles.show', $role) }}"
+                          {{-- <a href="{{ route('admin.roles.show', $role) }}"
                             class="btn btn-xs btn-default">
-                            {{-- target="_blank"> --}}
-                            <i class="fa fa-eye"></i></span></a>
+                            <i class="fa fa-eye"></i></span></a> --}}
                           <a href="{{ route('admin.roles.edit', $role) }}"
                             class="btn btn-xs btn-info">
                             <i class="fa fa-pencil"></i></span></a>
-                          <form method="POST"
-                            action="{{ route('admin.roles.destroy', $role) }}"
-                            style="display: inline">
-                            {{ csrf_field() }} {{ method_field('DELETE') }}
-                            <button class="btn btn-xs btn-danger"
-                              onclick="return confirm('Удалить эту роль?')"
-                            ><i class="fa fa-times"></i></button>
-                          </form>
+                            @if ($role->id !== 1)
+                              <form method="POST"
+                                action="{{ route('admin.roles.destroy', $role) }}"
+                                style="display: inline">
+                                {{ csrf_field() }} {{ method_field('DELETE') }}
+                                <button class="btn btn-xs btn-danger"
+                                  onclick="return confirm('Удалить эту роль?')"
+                                ><i class="fa fa-times"></i></button>
+                              </form>
+                            @endif
                     @endforeach
                   </tbody>
                 </table>

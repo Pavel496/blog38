@@ -13,6 +13,7 @@ class SaveRolesRequest extends FormRequest
      */
     public function authorize()
     {
+        // return \Gate::authorize('update', $this->route('role'));
         return true;
     }
 
