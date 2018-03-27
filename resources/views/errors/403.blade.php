@@ -4,7 +4,8 @@
   <section class="pages container">
     <div class="page page-about">
       <h1 class="text-capitalize">Страница не авторизована</h1>
-      <p>Перейти <a href="{{ route('pages.home') }}">Домой</a></p>
+      <span style="color:red">{{ $exception->getMessage() }}</span>
+      <p><a href="{{ url()->previous() }}">Возвратиться</a></p>
     </div>
   </section>
 @endsection

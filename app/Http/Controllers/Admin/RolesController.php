@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveRolesRequest;
 use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
@@ -40,15 +41,19 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveRolesRequest $request)
     {
-        $data = $request->validate([
-          'name' => 'required|unique:roles',
-          'display_name' => 'required'
-          // 'guard_name' => 'required'
-        ]);
+        // $data = $request->validate([
+        //   'name' => 'required|unique:roles',
+        //   'display_name' => 'required'
+        // ],
+        // [
+        //   'name.required' => 'Поле Identificator обязательно для заполнения.',
+        //   'name.unique' => 'Этот Identificator уже зарегистрирован.',
+        //   'display_name.required' => 'Поле Nombre обязательно для заполнения.'
+        // ]);
 
-        $role = Role::create($data);
+        $role = Role::create($request->validated());
 
         if ($request->has('permissions')) {
           $role->givePermissionTo($request->permissions);
@@ -90,14 +95,16 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(SaveRolesRequest $request, Role $role)
     {
-      $data = $request->validate([
-        'display_name' => 'required'
-        // 'guard_name' => 'required'
-      ]);
-
-      $role->update($data);
+      // $data = $request->validate(['display_name' => 'required'],
+      // [
+      //   'display_name.required' => 'Поле Имя обязательно для заполнения.'
+      // ]
+      //
+      // );
+// dd($request);
+      $role->update($request->validated());
 
       $role->permissions()->detach();
 
@@ -116,8 +123,16 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        if ( $role->id === 1 ) {
+          throw new \Illuminate\Auth\Access\AuthorizationException('Эту роль удалить нельзя!');
+        }
+
+        // $this->authorize('delete', $role);
+
+        $role->delete();
+
+        return redirect()->route('admin.roles.index')->withFlash('Роль удалена');
     }
 }

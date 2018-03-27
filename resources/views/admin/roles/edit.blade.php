@@ -16,7 +16,7 @@
 
             @include('admin.roles.form')
 
-            <button class="btn btn-primary btn-block">Create role</button>
+            <button class="btn btn-primary btn-block">Update role</button>
           </form>
         </div>
       </div>
