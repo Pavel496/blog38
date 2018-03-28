@@ -74,16 +74,25 @@
   <script>
     $(function () {
       $('#users-table').DataTable(
-      //   {
+        {
+          "language": {
+          "url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+          }
       //   "paging": true,
       //   "lengthChange": false,
       //   "searching": false,
       //   "ordering": true,
       //   "info": true,
       //   "autoWidth": false
-      // }
+          }
     );
     });
   </script>
 
 @endpush
+
+{{-- $.extend(true, $.fn.dataTable.defaults, {
+    "language": {
+        "url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+    }
+}); --}}
