@@ -14,54 +14,68 @@
 
 @section('content')
   <div class="box box-primary">
-              <div class="box-header">
-                <h3 class="box-title">List of users</h3>
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right">
-                  <i class="fa fa-plus"></i> Create user</a>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                <table id="users-table" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Actions</th>
-                  </tr>
-                  </thead>
+    <div class="box-header">
+      <h3 class="box-title">List of users</h3>
+      @can('create', $users->first())
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right">
+          <i class="fa fa-plus"></i> Create user</a>
+      @endcan
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <table id="users-table" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
 
-                  <tbody>
-                    @foreach ($users as $user)
-                      <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->getRoleNames()->implode(', ') }}</td>
-                        <td>
-                          <a href="{{ route('admin.users.show', $user) }}"
-                            class="btn btn-xs btn-default">
-                            {{-- target="_blank"> --}}
-                            <i class="fa fa-eye"></i></span></a>
-                          <a href="{{ route('admin.users.edit', $user) }}"
-                            class="btn btn-xs btn-info">
-                            <i class="fa fa-pencil"></i></span></a>
-                          <form method="POST"
-                            action="{{ route('admin.users.destroy', $user) }}"
-                            style="display: inline">
-                            {{ csrf_field() }} {{ method_field('DELETE') }}
-                            <button class="btn btn-xs btn-danger"
-                              onclick="return confirm('Удалить этого пользователя?')"
-                            ><i class="fa fa-times"></i></button>
-                          </form>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
+        <tbody>
+          @foreach ($users as $user)
+            @can('view', $user)
+              <tr>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->getRoleNames()->implode(', ') }}</td>
+                <td>
+                  @can('view', $user)
+                    <a href="{{ route('admin.users.show', $user) }}"
+                      class="btn btn-xs btn-default">
+                      {{-- target="_blank"> --}}
+                      <i class="fa fa-eye"></i></span></a>
+                  @endcan
+
+                  @can('update', $user)
+                    <a href="{{ route('admin.users.edit', $user) }}"
+                      class="btn btn-xs btn-info">
+                      <i class="fa fa-pencil"></i></span></a>
+                  @endcan
+
+                  @can('delete', $user)
+                    <form method="POST"
+                      action="{{ route('admin.users.destroy', $user) }}"
+                      style="display: inline">
+                      {{ csrf_field() }} {{ method_field('DELETE') }}
+                      <button class="btn btn-xs btn-danger"
+                        onclick="return confirm('Удалить этого пользователя?')"
+                      ><i class="fa fa-times"></i></button>
+                    </form>
+                  @endcan
+                </td>
+              </tr>
+            @endcan
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
 @endsection
 
 @push('styles')

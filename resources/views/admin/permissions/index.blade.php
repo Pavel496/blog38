@@ -40,9 +40,11 @@
                           {{-- <a href="{{ route('admin.roles.show', $role) }}"
                             class="btn btn-xs btn-default">
                             <i class="fa fa-eye"></i></span></a> --}}
-                          <a href="{{ route('admin.permissions.edit', $permission) }}"
-                            class="btn btn-xs btn-info">
-                            <i class="fa fa-pencil"></i></span></a>
+                          @can('update', $permission)
+                            <a href="{{ route('admin.permissions.edit', $permission) }}"
+                              class="btn btn-xs btn-info">
+                              <i class="fa fa-pencil"></i></span></a>
+                          @endcan
                             {{-- @if ($permission->id !== 1)
                               <form method="POST"
                                 action="{{ route('admin.roles.destroy', $permission) }}"
@@ -53,6 +55,8 @@
                                 ><i class="fa fa-times"></i></button>
                               </form>
                             @endif --}}
+                        </td>
+                      </tr>
                     @endforeach
                   </tbody>
                 </table>

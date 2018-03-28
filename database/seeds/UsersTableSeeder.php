@@ -63,15 +63,15 @@ class UsersTableSeeder extends Seeder
       $viewPermissionsPermission = Permission::create([
         'name' => 'View permissions', 'display_name' => 'Просмотр разрешений'
       ]);
-      $createPermissionsPermission = Permission::create([
-        'name' => 'Create permissions', 'display_name' => 'Создание разрешений'
-      ]);
+      // $createPermissionsPermission = Permission::create([
+      //   'name' => 'Create permissions', 'display_name' => 'Создание разрешений'
+      // ]);
       $updatePermissionsPermission = Permission::create([
         'name' => 'Update permissions', 'display_name' => 'Обновление разрешений'
       ]);
-      $deletePermissionsPermission = Permission::create([
-        'name' => 'Delete permissions', 'display_name' => 'Удаление разрешений'
-      ]);
+      // $deletePermissionsPermission = Permission::create([
+      //   'name' => 'Delete permissions', 'display_name' => 'Удаление разрешений'
+      // ]);
 
       $admin = new User;
       $admin->name = 'admin1';
